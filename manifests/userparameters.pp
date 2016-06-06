@@ -61,7 +61,7 @@ define zabbix::userparameters (
   $script_dir = '/usr/bin',
 ) {
   $include_dir          = getvar('::zabbix::agent::include_dir')
-  $zabbix_agent_package = getvar('::zabbix::params::zabbix_package_agent')
+  $zabbix_package_agent = getvar('::zabbix::params::zabbix_package_agent')
 
   if $source != '' {
     file { "${include_dir}/${name}.conf":
@@ -71,7 +71,7 @@ define zabbix::userparameters (
       mode    => '0644',
       source  => $source,
       notify  => Service['zabbix-agent'],
-      require => Package[$zabbix_agent_package],
+      require => Package[$zabbix_package_agent],
     }
   }
 
@@ -83,7 +83,7 @@ define zabbix::userparameters (
       mode    => '0644',
       content => $content,
       notify  => Service['zabbix-agent'],
-      require => Package[$zabbix_agent_package],
+      require => Package[$zabbix_package_agent],
     }
   }
 
@@ -95,7 +95,7 @@ define zabbix::userparameters (
       mode    => '0755',
       source  => $script,
       notify  => Service['zabbix-agent'],
-      require => Package[$zabbix_agent_package],
+      require => Package[$zabbix_package_agent],
     }
   }
 
